@@ -21,9 +21,38 @@ body {
 }
 
 body {
-  @apply min-h-[100dvh] flex flex-col;
+  @apply min-h-dvh flex flex-col;
   main {
     @apply flex-1;
   }
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-bold;
+}
+
+form {
+  input,
+  select,
+  textarea {
+    @apply p-2 w-auto ring-0 outline-none border border-gray-300;
+  }
+  select,
+  input[type="date"]{
+    @apply appearance-none bg-white;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  textarea {
+    @apply field-sizing-content;
+  }
+  button {
+    @apply p-2 bg-gray-300 cursor-pointer;
+  }
+}
