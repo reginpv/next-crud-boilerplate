@@ -1,18 +1,105 @@
 "use client"
 
-import { useActionState, useState, useRef } from "react"
-import { loginUser } from "@/lib/actions/user"
+import { useState, useRef } from "react"
+import { signIn } from "next-auth/react"
+import { useRouter } from "next/navigation"
 
-
-export default function FormLoginContent() {
+export default function FormLogin() {
   
+  const router = useRouter()
+  const { push:redirect } = router
   const formRef = useRef<HTMLFormElement>(null)
-  const [state, handleSubmit, pending] = useActionState(loginUser, {})
+  const [state, setState] = useState({
+    message: "",
+    success: false,
+    errors: {
+      email: "",
+      password: ""
+    }
+  })
+  const [pending, setPending] = useState(false)
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+
+    setPending(true)
+
+    const formData = new FormData(formRef.current)
+    const email = formData.get("email")?.toString().trim()
+    const password = formData.get("password")?.toString().trim()
+
+    if (!email || !password) {
+      setState({
+        message: null,
+        success: false,
+        errors: {
+          email: !email ? "Email is required." : "",
+          password: !password ? "Password is required." : ""
+        }
+      })
+      setPending(false)
+      return
+    }
+
+    try {
+
+      const res = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+        
+      })
+
+      console.log("res: ", res)
+
+      if (res?.ok === true ) {
+
+        setState({
+          message: "Logged in successfully",
+          success: true,
+          errors: {
+            email: "",
+            password: ""
+          }
+        })
+
+        redirect("/")
+
+      } else {
+
+        setState({
+          message: "Failed to login",
+          success: false,
+          errors: {
+            email: "",
+            password: ""
+          }
+        })
+
+      }
+
+      setPending(false)
+
+    } catch (error) {
+      
+      setState({
+        message: "Failed to login",
+        success: false,
+        errors: {
+          email: "",
+          password: ""
+        }
+      })
+      
+    }
+
+
+  }
 
   return (
     <form 
       ref={formRef}
-      action={handleSubmit} 
+      onSubmit={handleSubmit} 
       noValidate 
       className="flex flex-col gap-5"
     >
@@ -29,6 +116,7 @@ export default function FormLoginContent() {
         />
         {state?.errors?.email && <p className="error">{state?.errors?.email}</p>}
       </div>
+
       <div className="form-control">
         <label>Password</label>
         <input
@@ -40,6 +128,7 @@ export default function FormLoginContent() {
         />
         {state?.errors?.password && <p className="error">{state?.errors?.password}</p>}
       </div>
+
       <div>
         <button
           type="submit"

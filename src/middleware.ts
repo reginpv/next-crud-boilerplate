@@ -10,15 +10,16 @@ interface Token extends JWT {
 export async function middleware(req: NextRequest) {
   
   const token: Token | null = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
-  const role = token?.role ?? 0
   const { pathname } = req.nextUrl
 
-  // Checks for logged in users
-  if (pathname.startsWith('/user') && role < 1 ) {    
+  if (pathname.startsWith('/user') && !token) {    
     return NextResponse.redirect(new URL('/login', req.url))
   }
 
-  // Allow access to other routes
+  if (pathname.startsWith('/login') && token) {
+    return NextResponse.redirect(new URL('/user', req.url))
+  }
+
   return NextResponse.next()
 
 }

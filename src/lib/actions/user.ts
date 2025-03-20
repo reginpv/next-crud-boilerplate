@@ -1,7 +1,7 @@
 "use server"
 
 import prisma from "@/lib/prisma"
-import { hash, compare } from "bcrypt"
+import { hash } from "bcrypt"
 import { revalidatePath } from "next/cache"
 
 const table = "user"
@@ -39,7 +39,7 @@ export async function createUser(prevState: User, formData: User) {
   const password = formData.get("password")?.toString().trim()
 
   // Check for missing required fields
-  const requiredFields = ["name", "email"] as const
+  const requiredFields = ["name", "email", "password"] as const
   type Field = typeof requiredFields[number]
   let errors: { [key in Field]?: string } = {}
   requiredFields.forEach((field) => {
@@ -52,7 +52,6 @@ export async function createUser(prevState: User, formData: User) {
   if (Object.keys(errors).length > 0) {
     return {
       success: false,
-      message: "Failed to create user",
       errors,
       input: {
         name,
@@ -96,6 +95,7 @@ export async function createUser(prevState: User, formData: User) {
 
     return {
       success: true,
+      message: "User created successfully",
       payload: user
     }
 
@@ -109,66 +109,18 @@ export async function createUser(prevState: User, formData: User) {
   
 }
 
-// LOGIN
-export async function loginUser(prevState: User, formData: User) {
-
-  const email = formData.get("email")?.toString().trim()
-  const password = formData.get("password")?.toString().trim()
-
-  // Check for missing required fields
-  const requiredFields = ["email", "password"] as const
-  type Field = typeof requiredFields[number]
-  let errors: { [key in Field]?: string } = {}
-  requiredFields.forEach((field) => {
-    if (!formData.get(field)?.toString().trim()) {
-      errors[field] = `${field} is required.`
-    }
-  })
-
-  // Has error, return data
-  if (Object.keys(errors).length > 0) {
-    return {
-      success: false,
-      message: "Failed to login user",
-      errors,
-      input: {
-        email,
-      }
-    }
-  }
+// DELETE
+export async function deleteUser(id: string) {
 
   try {
-
-    // Check if email already exists
-    const user = await prisma[table].findFirst({
+    const user = await prisma[table].delete({
       where: {
-        email: email,
-      },
+        id: parseInt(id)
+      }
     })
 
-    // If email already exists, return error
-    if (!user) {
-      return { 
-        success: false, 
-        message: [`Email ${email} not found.`],
-        input: {
-          email,
-        }
-      }
-    }
-
-    // Check password
-    const passwordMatch = await compare(password, user.password)
-
-    if (!passwordMatch) {
-      return { 
-        success: false, 
-        message: ["Password does not match."],
-        input: {
-          email,
-        }
-      }
-    }
+    // Revalidate route cache
+    revalidatePath("/users")
 
     return {
       success: true,
@@ -176,11 +128,10 @@ export async function loginUser(prevState: User, formData: User) {
     }
 
   } catch (error) {
-    console.log("error:", error)
     return {
       success: false,
       payload: null,
-      message: "Failed to login user"
+      message: "Failed to delete user"
     }
   }
   

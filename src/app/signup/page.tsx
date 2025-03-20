@@ -1,7 +1,7 @@
-import FormLogin from "@/components/forms/FormLogin";
-import Link from "next/link";
+import FormSignup from "@/components/forms/FormSignup"
+import Link from "next/link"
 
-export default function Login() {
+export default function Signup() {
   return (
     <section className="h-dvh">
       <div className="h-full">
@@ -9,14 +9,14 @@ export default function Login() {
         <div className="flex flex-col md:flex-row h-full">
           <div className="flex-1 p-5 flex flex-col gap-5 items-center justify-center">
 
-            <h1>Login</h1>
+            <h1>Signup</h1>
 
             <div>
-              <FormLogin />
+              <FormSignup />
             </div>
 
             <p className="mt-10">
-              <Link href="/signup">Create an account</Link>
+              Already have an account? <Link href="/login">Login here</Link>
             </p>
 
           </div>

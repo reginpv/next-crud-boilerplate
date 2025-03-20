@@ -1,6 +1,12 @@
 import Link from "next/link"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/authOptions"
+import { ButtonSignOut } from "../ButtonsAuth"
 
-export default function Header() {
+export default async function Header() {
+
+  const session = await getServerSession(authOptions)
+
   return (
     <header className="bg-gray-200">
       <div className="container">
@@ -10,9 +16,12 @@ export default function Header() {
             <Link href="/">Header</Link>
           </h1>
 
-          <div>
-            <Link href="/login">Login</Link>
-          </div>
+          {session ? 
+            <ButtonSignOut /> :
+            <div>
+              <Link href="/login">Login</Link>
+            </div>
+          }
         </div>
         
       </div>
