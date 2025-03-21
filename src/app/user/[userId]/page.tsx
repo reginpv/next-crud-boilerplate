@@ -1,7 +1,5 @@
 import { Metadata } from "next"
 import TemplateDefault from "@/templates/Default"
-import { getServerSession } from "next-auth"  
-import { authOptions } from "@/lib/authOptions"
 import { getUser } from "@/lib/actions/user"
 
 export const metadata: Metadata = {
@@ -19,7 +17,6 @@ export default async function UserSingle({
 
   const { userId } = await params
 
-  const session = await getServerSession(authOptions)
   const res = await getUser(userId)
   const user = res.payload
 
