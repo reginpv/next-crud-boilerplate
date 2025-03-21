@@ -1,4 +1,5 @@
 import { ReactNode } from "react"
+import ThemeProvider from "./themeProvider"
 
 export default async function TemplateBlank({ 
   children,
@@ -9,8 +10,8 @@ export default async function TemplateBlank({
 }) {
   
   return (
-    <>
+    <ThemeProvider>
       <main className={className}>{children}</main>
-    </>
+    </ThemeProvider>
   )
 }

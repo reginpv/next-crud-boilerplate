@@ -35,7 +35,7 @@ export default async function Home() {
                   {
                     users.map((user: User) => (
                       <li key={user.id}>
-                        <Link href={`/user/${user.id}`} className="bg-gray-200 px-2 py-1 rounded-full">{user.name}</Link>
+                        <Link href={`/user/${user.id}`} className="bg-gray-200 dark:bg-gray-900 dark:text-white px-2 py-1 rounded-full">{user.name}</Link>
                       </li>
                     ))
                   }

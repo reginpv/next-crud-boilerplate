@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Login() {
   return (
-    <section className="h-dvh">
+    <section className="h-dvh dark:bg-gray-800 dark:text-white">
       <div className="h-full">
         
         <div className="flex flex-col md:flex-row h-full">
@@ -21,7 +21,7 @@ export default function Login() {
             </div>
 
           </div>
-          <div className="flex-1 bg-gray-300 p-5 flex items-center justify-center">
+          <div className="flex-1 bg-gray-300 dark:bg-gray-900 dark:text-white p-5 flex items-center justify-center">
             <div className="max-w-sm">
               Lorem Ipsum is simply dummy text of the printing and typesetting industry.
             </div>

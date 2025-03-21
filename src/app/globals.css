@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @import "../styles/utilities.css";
 
@@ -53,10 +54,10 @@ form {
     @apply field-sizing-content;
   }
   button {
-    @apply p-2 bg-gray-300 cursor-pointer;
+    @apply p-2 bg-gray-300 cursor-pointer dark:bg-gray-900 dark:text-white;
   }
 }
 
 button {
-  @apply cursor-pointer;
+  @apply cursor-pointer dark:bg-gray-900 dark:text-white;
 }

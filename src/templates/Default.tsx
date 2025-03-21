@@ -1,3 +1,4 @@
+import ThemeProvider from "./themeProvider"
 import Header from "@/components/globals/Header"
 import Footer from "@/components/globals/Footer"
 
@@ -8,10 +9,10 @@ export default async function TemplateDefault({
 }) {
 
   return (
-    <>
+    <ThemeProvider>
       <Header />
-      <main>{children}</main>
+      <main className="dark:bg-gray-800 dark:text-white">{children}</main>
       <Footer />
-    </>
+    </ThemeProvider>
   )
 }
