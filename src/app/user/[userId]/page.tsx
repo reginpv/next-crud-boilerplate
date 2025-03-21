@@ -5,14 +5,22 @@ import { authOptions } from "@/lib/authOptions"
 import { getUser } from "@/lib/actions/user"
 
 export const metadata: Metadata = {
-  title: "User",
-  description: "User"
+  title: "User single",
+  description: "User single"
 }
 
-export default async function User() {
+export default async function UserSingle({
+  params
+}:{
+  params: Promise<{
+    userId: string
+  }>
+}) {
+
+  const { userId } = await params
 
   const session = await getServerSession(authOptions)
-  const res = await getUser(session.user.id)
+  const res = await getUser(userId)
   const user = res.payload
 
   return (
@@ -21,18 +29,11 @@ export default async function User() {
         <div className="container">
           
           <div className="flex flex-col gap-5">
-            <h1>User</h1>
-            
-            {
-              session && <div>
-                <p>Hello {session.user.name}, you are now logged in.</p>
-                <p></p>
-              </div>
-            }
+            <h1>User: {userId}</h1>
 
             {
               user && <div>
-                <p className="font-bold">Your details:</p>
+                <p className="font-bold">User details:</p>
                 <p>ID: {user.id}</p>
                 <p>Name: {user.name}</p>
                 <p>Email: {user.email}</p>
