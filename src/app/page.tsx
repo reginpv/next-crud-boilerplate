@@ -8,12 +8,24 @@ export default async function Home() {
 
   return (
     <TemplateDefault>
-      <section>
+      <section className="h-full">
         <div className="container">
-          <h1>Home</h1>
-          <div>
-            {JSON.stringify(session, null, 2)}
+
+          <div className="flex flex-col gap-5">
+            <h1>Home</h1>
+            
+            {
+              session && <div>
+                Hello {session.user.name}, you are now logged in.
+              </div>
+            }
+
+            <div>
+              <p>This is a demo project built with Next.js 15, Neon PostgreSQL, Prisma, and Tailwind CSS v4, deployed on Vercel.</p>
+            </div>
+
           </div>
+         
         </div>
       </section>
     </TemplateDefault>
