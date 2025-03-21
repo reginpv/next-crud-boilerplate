@@ -42,4 +42,5 @@ prisma generate && next build
 This step is crucial to ensure that Prisma generates the necessary client files before building your Next.js application.
 
 
+![Screenshot_5](https://github.com/user-attachments/assets/060032fb-05a8-4be4-a44e-b8d549ee78c5)
 
