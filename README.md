@@ -2,14 +2,33 @@
 
 This project is a boilerplate for building CRUD applications using Next.js 15.
 
+## Prerequisites
+
+Before you begin, make sure you have the following installed:
+
+- **Node.js v22.14.x**  
+  Ensure you are using Node.js version `22.14.x` (LTS or latest stable version). You can manage Node versions using tools like `nvm`.
+
+  ```bash
+  nvm install 22.14
+  nvm use 22.14
+  ```
+
+- **Vercel CLI**
+  ```bash
+  npm install -g vercel
+  ```
+
+- **Vercel account**
+  Register a hobby account
+
 ## Installation
 
 Follow these steps to set up the project:
 
 1. **Clone the repository**:
   ```bash
-  git clone git@github.com:reginpv/next-crud-boilerplate.git
-  cd next-crud-boilerplate
+  git clone https://github.com/reginpv/next-crud-boilerplate.git .
   ```
 
 2. **Install dependencies**:
