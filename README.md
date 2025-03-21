@@ -30,3 +30,16 @@ Follow these steps to set up the project:
   ```
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+
+### Important Note on Prisma and Vercel
+
+When using Prisma with Vercel, ensure that you configure the **Framework Settings** correctly. Specifically, override the build command to:
+
+```bash
+prisma generate && next build
+```
+
+This step is crucial to ensure that Prisma generates the necessary client files before building your Next.js application.
+
+
+
