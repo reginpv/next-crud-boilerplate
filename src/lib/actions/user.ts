@@ -6,7 +6,33 @@ import { revalidatePath } from "next/cache"
 
 const table = "user"
 
-// GET
+// GET ONE
+// Because Session returns ID as string, we need to parse it to integer
+export async function getUser(id: string) {
+
+  try {
+    const user = await prisma[table].findFirst({
+      where: {
+        id: +id
+      }
+    })
+
+    return {
+      success: true,
+      payload: user
+    }
+
+  } catch (error) {
+    return {
+      success: false,
+      payload: null,
+      message: "Failed to get user"
+    }
+  }
+  
+}
+
+// GET ALL
 export async function getUsers() {
 
   try {

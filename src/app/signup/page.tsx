@@ -15,9 +15,10 @@ export default function Signup() {
               <FormSignup />
             </div>
 
-            <p className="mt-10">
-              Already have an account? <Link href="/login">Login here</Link>
-            </p>
+            <div className="mt-7 flex flex-col gap-3 text-center">
+              <p><Link href="/">Home</Link></p>
+              <p>Already have an account? <Link href="/login">Login here</Link></p>
+            </div>
 
           </div>
           <div className="flex-1 bg-gray-300 p-5 flex items-center justify-center">

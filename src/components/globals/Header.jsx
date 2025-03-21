@@ -17,7 +17,10 @@ export default async function Header() {
           </h1>
 
           {session ? 
-            <ButtonSignOut /> :
+            <div className="flex items-center gap-5">
+              <Link href="/user">User</Link>
+              <ButtonSignOut />
+            </div> :
             <div>
               <Link href="/login">Login</Link>
             </div>

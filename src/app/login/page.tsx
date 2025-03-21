@@ -15,9 +15,10 @@ export default function Login() {
               <FormLogin />
             </div>
 
-            <p className="mt-10">
+            <div className="mt-7 flex flex-col gap-3 text-center">
+              <Link href="/">Home</Link>
               <Link href="/signup">Create an account</Link>
-            </p>
+            </div>
 
           </div>
           <div className="flex-1 bg-gray-300 p-5 flex items-center justify-center">
